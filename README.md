@@ -25,7 +25,6 @@ Edit the `.env` file to set your database credentials:
 
 ```
 DB_DATABASE=your_database_name
-
 ```
 
 ### 🧱 Step 5: Run Migrations and Seeders
