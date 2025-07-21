@@ -10,7 +10,7 @@ A Laravel-based RESTful API for managing articles, including route versioning, s
 
 ```bash
 git clone https://github.com/MustafaAyan021/article-management-api.git
-cd articles-api-management-api
+cd articles-management-api
 ```
 
 ### 📦 Step 2: Install Dependencies
