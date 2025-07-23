@@ -15,20 +15,14 @@ class ArticleController extends Controller
 {
     use ResponseHelper;
 
-     public function publicIndex(Request $request)
+    public function publicIndex(Request $request)
     {
         $query = Article::where('status', 'published');
-
-        if ($request->has('author')) {
-            $query->where('author_id', $request->author);
-        }
-
+        when($request->has('author'), fn() => $query->where('author_id', $request->author_id));
         $articles = $query->get();
-
         return $this->successResponse(
             ArticleResource::collection($articles),
             'Successfully Fetched Published Articles',
-            200
         );
     }
 
@@ -41,7 +35,6 @@ class ArticleController extends Controller
         return $this->successResponse(
             new ArticleResource($article),
             'Successfully Fetched Published Article',
-            200
         );
     }
 
@@ -58,7 +51,6 @@ class ArticleController extends Controller
         return $this->successResponse(
             ArticleResource::collection($articles),
             'Successfully Fetched Articles',
-            200
         );
     }
 
@@ -87,7 +79,6 @@ class ArticleController extends Controller
         return $this->successResponse(
             ArticleResource::collection($article),
             'Successfully Fetched Article',
-            200,
         );
     }
 
@@ -101,7 +92,6 @@ class ArticleController extends Controller
         return $this->successResponse(
             new ArticleResource($article),
             'Successfully Updated Article',
-            200,
         );
     }
 
@@ -114,7 +104,7 @@ class ArticleController extends Controller
         return $this->successResponse(
             null,
             'Successfully Trashed Article',
-            200,
+            204,
         );
     }
 
@@ -124,7 +114,6 @@ class ArticleController extends Controller
         return $this->successResponse(
             ArticleResource::collection($articles),
             'Successfully Fetched Trashed Article',
-            200,
         );
     }
 
@@ -135,7 +124,7 @@ class ArticleController extends Controller
         return $this->successResponse(
             null,
             'Successfully Restored Article',
-            200,
+            204,
         );
     }
 }

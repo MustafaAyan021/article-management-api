@@ -22,7 +22,7 @@ class GetUniqueTitlePerAuthor implements ValidationRule
             ->where('title', $value);
 
         if ($this->articleId) {
-            $query->where('id', '!=' , $this->articleId);
+            $query->whereNot('id', $this->articleId);
         }
 
         if ($query->exists()) {
