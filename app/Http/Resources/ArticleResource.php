@@ -21,7 +21,7 @@ class ArticleResource extends JsonResource
             'status' => $this->status,
             'metadata' => $this->metadata,
             'summary' => $this->summary,
-            'author_id' => [
+            'author' => [
                 'id' => $this->author->id,
                 'name' =>$this->author->name,
             ],
