@@ -6,6 +6,7 @@ use App\Http\Requests\ArticleRequest\StoreArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Traits\ResponseHelper;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -15,9 +16,9 @@ class ArticleController extends Controller
 {
     use ResponseHelper;
 
-    public function publicIndex(Request $request)
+    public function publicIndex(Request $request): JsonResponse
     {
-        $query = Article::where('status', 'published');
+        $query = Article::where('status','published');
         when($request->has('author'), fn() => $query->where('author_id', $request->author_id));
         $articles = $query->get();
         return $this->successResponse(
@@ -26,7 +27,7 @@ class ArticleController extends Controller
         );
     }
 
-    public function publicShow(string $slug)
+    public function publicShow(string $slug): JsonResponse
     {
         $article = Article::where('slug', $slug)
             ->where('status', 'published')
@@ -42,7 +43,7 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = Article::query()->where('author_id', $request->user()->id);
 
@@ -57,7 +58,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request, Article $article)
+    public function store(StoreArticleRequest $request, Article $article): JsonResponse
     {
         $data = $request->validated();
         $data['author_id'] = $request->user()->id;
@@ -73,7 +74,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(string $slug): JsonResponse
     {
         $article = Article::where('slug', $slug)->get();
         return $this->successResponse(
@@ -85,7 +86,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article): JsonResponse
     {
         $data = $request->validated();
         $article->update($data);
@@ -98,7 +99,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article): JsonResponse
     {
         $article->delete();
         return $this->successResponse(
@@ -108,7 +109,7 @@ class ArticleController extends Controller
         );
     }
 
-    public function trashed(Request $request)
+    public function trashed(Request $request): JsonResponse
     {
         $articles = Article::onlyTrashed()->where('author_id', $request->user()->id)->get();
         return $this->successResponse(
@@ -117,7 +118,7 @@ class ArticleController extends Controller
         );
     }
 
-    public function restore(Request $request, $id)
+    public function restore(Request $request, $id): JsonResponse
     {
         $article = Article::onlyTrashed()->where('id',  $id)->where('author_id', $request->user()->id)->firstOrFail();
         $article->restore();

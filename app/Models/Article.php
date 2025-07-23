@@ -10,6 +10,9 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Article extends Model
 {
@@ -49,15 +52,18 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function seoSetting(){
+    public function seoSetting():HasOne
+    {
         return $this->hasOne(ArticleSeoSetting::class);
     }
 
-    public function comments(){
+    public function comments():HasMany
+    {
         return $this->hasMany(ArticleComment::class);
     }
 
-    public function tags(){
-        return $this->morphMany(Tag::class, 'tagable');
+    public function tags():MorphMany
+    {
+        return $this->morphMany(Tag::class, 'taggable');
     }
 }
