@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ArticleRequest;
 
 use App\Rules\GetUniqueTitlePerAuthor;
 use Illuminate\Foundation\Http\FormRequest;

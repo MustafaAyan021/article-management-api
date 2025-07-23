@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\ArticleRequest\StoreArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Traits\ResponseHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Requests\ArticleRequest\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
