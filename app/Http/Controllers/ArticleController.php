@@ -53,13 +53,11 @@ class ArticleController extends Controller
     {
         $query = Article::query()->where('author_id', $request->user()->id);
 
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
+        when($request->has('status'), fn() => $query->where('status', $request->status));
         $articles = $query->get();
         return $this->successResponse(
             ArticleResource::collection($articles),
-            'Successfully Fethced Articles',
+            'Successfully Fetched Articles',
             200
         );
     }
@@ -88,7 +86,7 @@ class ArticleController extends Controller
         $article = Article::where('slug', $slug)->get();
         return $this->successResponse(
             ArticleResource::collection($article),
-            'Succefully Fetched Article',
+            'Successfully Fetched Article',
             200,
         );
     }
@@ -125,7 +123,7 @@ class ArticleController extends Controller
         $articles = Article::onlyTrashed()->where('author_id', $request->user()->id)->get();
         return $this->successResponse(
             ArticleResource::collection($articles),
-            'Successfully Feached Trashed Article',
+            'Successfully Fetched Trashed Article',
             200,
         );
     }
