@@ -20,8 +20,8 @@ class TagFactory extends Factory
         $language = 'en_US';
         return [
             'name' => fake()->sentence(1),
-            'tagable_id' => Article::inRandomOrder()->first()->id,
-            'tagable_type' => Article::class,
+            'taggable_id' => Article::inRandomOrder()->first()->id,
+            'taggable_type' => Article::class,
         ];
     }
 }

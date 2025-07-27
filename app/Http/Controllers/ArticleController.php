@@ -22,7 +22,7 @@ class ArticleController extends Controller
         when($request->has('author'), fn() => $query->where('author_id', $request->author_id));
         $articles = $query->get();
         return $this->successResponse(
-            ArticleResource::collection($articles),
+            ArticleResource::collection(resource: $articles),
             'Successfully Fetched Published Articles',
         );
     }
@@ -129,3 +129,6 @@ class ArticleController extends Controller
         );
     }
 }
+
+
+
