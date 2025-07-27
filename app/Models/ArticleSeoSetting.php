@@ -17,7 +17,7 @@ class ArticleSeoSetting extends Model
         'article_id',
     ];
 
-    protected function casts()
+    protected function casts(): array
     {
         return [
             'keywords' => 'array',
